@@ -1,0 +1,8 @@
+http://codeforces.com/problemset/problem/61/E -tough
+http://acm.timus.ru/problem.aspx?space=1&num=1523 -tough
+https://www.codechef.com/problems/IITI15 -tough
+http://www.spoj.com/problems/SWAPS/ -tough -i didnot solve
+http://www.spoj.com/problems/MSE06H/ -medium
+http://www.spoj.com/problems/INVCNT/ -basic
+http://www.spoj.com/problems/YODANESS/ -basic
+https://www.codechef.com/problems/INTERSEC -medium

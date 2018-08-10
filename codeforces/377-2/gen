@@ -1,0 +1,20 @@
+
+char cc[26] ;
+
+half the char counts 
+
+set<string> sett ; 
+
+void rec(charcounts,string s){  // initially s is empty. 
+	if (can't add any character){
+		sett.insert(s) ; 
+		return ; 
+	}
+	vector<char> c = get_all_possible_chars()
+	for i in c.size(){
+		cc[c[i]-'a']-- ; 
+		rec(modified_cc,s+c[i]) ; 
+		cc[c[i]-'a']++ ; 
+	}
+}
+

@@ -1,0 +1,128 @@
+/* I solemnly swear that I am upto no good. */
+ #include <iostream>
+ #include <cstring>
+ #include <vector>
+ #include <map>
+ #include <set>
+ #include <stack>
+ #include <queue>
+ #include <deque>
+ #include <sstream>
+ #include <iomanip>
+ #include <cassert>
+ #include <sys/time.h>
+ #include <algorithm>
+ #include <bitset>
+ #include <cmath>
+ #include <functional>
+ #include <cmath>
+
+ using namespace std ;
+
+ #define xx first
+ #define yy second
+ #define ll long long
+ #define ld long double
+ #define el (char)0x0A
+ #define sp " "
+ #define pb push_back
+ #define mp make_pair
+ #define all(x) (x).begin(),(x).end()
+ #define clr(x) memset((x),0,sizeof(x))
+ #define uint unsigned int
+ #define abs(x) ((x<=0)?(-x):(x))
+ #define MAXN 100005
+ #define INF (int)1E10+1
+ #define MOD (int)1E9+7
+ #define last_set_bit(x) log2((x)&(-x))
+ #define add(x,y) (x)=((x)+(y))%MOD
+
+ typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> > VVI ; typedef vector<bool> VB ; typedef vector<string> VS ;
+ typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
+
+ int F[10*MAXN] ;
+ void build_failure_function(string pat){
+     F[0] = 0 ; // Empty string
+     F[1] = 0 ; // We need a proper prefix.
+
+     int i = 2;
+     while (i <= pat.size()){
+         int j = i-1 ;
+         F[i] = 0 ;
+         while (j > 0){
+             if (pat[i-1] == pat[F[j]]){
+                 F[i] = F[j]+1 ;
+                 break ;
+             }
+             j = F[j]-1;
+         }
+         i++ ;
+     }
+ }
+ vector<int> patstarts ;
+ int find_patterns(string word, string pat){
+     int ans = 0 ;
+     int i = 0 , j = 0 ;
+
+     while (i < word.size()){
+
+         if (word[i]==pat[j]){
+            i++ ;
+            j++ ;
+            if (j == pat.size()-1){
+                patstarts.pb(i-pat.size()+2) ;
+                j = F[pat.size()-1] ;
+                ans++ ;
+                continue ;
+            }
+         }
+         else{
+             while (j > 0){
+                 j = F[j] ;
+                 if (word[i]==pat[j]){
+                     i++ ; j++ ;
+                     break ;
+                 }
+             }
+         }
+         if (j == 0){
+             i++ ;
+         }
+     }
+     return ans ;
+
+ }
+
+
+
+ int main(){
+ 	ios_base::sync_with_stdio(false) ;
+ 	cin.tie(nullptr) ;
+    int t ; cin >>t ;
+    while (t--){
+        string s,  pat ;
+        cin >> s >> pat ;
+        patstarts.clear() ;
+        memset(F,0,sizeof(F)) ;
+        build_failure_function(pat) ;
+        pat += '$' ;
+
+        int ans = find_patterns(s,pat) ;
+        if (ans == 0){
+            cout << "Not Found\n\n" ;
+        }
+        else{
+            cout << ans << el ;
+            for(int i = 0 ; i < patstarts.size() ; i++){
+                cout << patstarts[i] << sp ;
+            }
+            cout << el << el ;
+
+        }
+    }
+
+
+
+
+
+ }

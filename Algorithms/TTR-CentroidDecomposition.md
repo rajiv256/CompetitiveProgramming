@@ -1,0 +1,5 @@
+- Assuming I already know the way to create the centroid decomposition of a tree.
+- This technique can be used in case of path based queries on a tree.
+- The important quirk in this method is that every path (**A->B**) in the actual tree can be broken down into two paths **A->C and C->B** where **C** is the `LCA` of the nodes A and B in the centroid tree.
+    - This can be easily proved. Since 'C' will be the centroid when **B** and **C** got separated into two different forests. Naturally **C** will be the `LCA` of those two nodes.  
+    - As we know the maximum height of the Centroid tree is `O(logN)` where `N` is the number of nodes in the actual tree. So the point is if some node is updated, then all the LCA's of this node with all other nodes will lie in the path from the updated node to the root in the centroid tree. Storing relevant information in each node, we can answer the queries in `O(logN)` time. 

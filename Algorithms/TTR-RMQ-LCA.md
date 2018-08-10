@@ -1,0 +1,12 @@
+- RMQ and LCA problems are usually inter-convertible.
+- **LCA using RMQ**
+    - LCA of a can be considered as a case of restricted RMQ problem by considering elements from 1 to N
+    - We consider the Eularian walk on the tree using dfs.
+    - Then we keep track of the first occurences of each node in the Eulerian walk in an array called H.
+    -  We also keep track of the depth of each node in an array called L.
+    - Now as you can check, LCA(x,y) = RMQ-L(H[x],H[y])
+
+- **RMQ using LCA**
+    - This is a tad bit more complicated. We need to construct a tree here. It is called a cartesian tree.
+    - The root of the tree is the index of the  minimum element. Say **i** is the root of the *cartesian tree* and its left child as the cartesian tree from A[0..i-1] and right child will be A[i+1..N-1] where A[0..N-1] is the array to find **RMQ(x,y)** - the index of min element in the range x->y  
+    - After the cartesian tree is constructed we just have to find LCA(x,y) to get RMQ

@@ -41,9 +41,10 @@
  typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
 
  // Note : Add '$' to the pat.
- // Failure function at an index 'i' tells which index to go when the mismatch happens in the pattern at index 'i'
- // For this, we need to find the greatest proper prefix which is also a suffix of the substring s[0..i-1]
- // The value at the index of '$'(last index) gives us the longest proper prefix which is also a suffix of the string.
+ // F[0] and F[1] = 0 : as we won't get any proper prefixes and suffixes for s[0..i-1] until the length is 3. 
+ // F[i] : Index in the pattern to go to if the match fails at i-th index. This is also equal to the length of the 
+ //        proper-prefix that is also a suffix of the substring pat[0..i-1] inclusive. 
+ //       
  int F[20*MAXN] ;
  void build_failure_function(string pat){
      F[0] = 0 ; F[1] = 0 ;

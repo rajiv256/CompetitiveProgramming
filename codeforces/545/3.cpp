@@ -19,6 +19,7 @@
 #include <cmath>
 #include <functional>
 #include <cmath>
+#include <cstdio>
 
 using namespace std ;
 
@@ -45,11 +46,68 @@ using namespace std ;
 typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> > VVI ; typedef vector<bool> VB ; typedef vector<string> VS ;
 typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
 
+ll n , m ; ll ro[1002][1002] ; ll co[1002][1002] ;
+ll a[1002][1002] ; ll rh[1002][1002] ; ll rt[1002][1002] ;
+ll ch[1002][1002] ; ll ct[1002][1002] ;
+
 int main(){
 
+    scanf("%d%d", &n, &m);
+    forn(i,0,n) forn(j,0,m) scanf("%d",&a[i][j]);
+    vector<ll> v ;
+    forn(i,0,n){
+        v.clear() ;
+        forn(j,0,m){
+            v.pb(a[i][j]) ;
+        }
+        sort(all(v)) ;
+        auto it = unique(all(v)) ;
+        v.resize(it-v.begin()) ;
+        for(int j = 0 ; j < m ; j++){
+            rh[i][j] = lower_bound(all(v), a[i][j])-v.begin()  ;
+            rt[i][j] = v.size()-rh[i][j]-1 ;
+        }
+    }
 
+    forn(i,0,m){
+        v.clear() ;
+        forn(j,0,n){
+            v.pb(a[j][i]) ;
+        }
+        sort(all(v)) ;
+        auto it = unique(all(v)) ;
+        v.resize(it-v.begin()) ;
+        forn(j,0,n){
+            ch[j][i] = lower_bound(all(v), a[j][i]) - v.begin()  ;
+            ct[j][i] = v.size() - ch[j][i]-1 ;
+        }
+
+    }
+
+    forn(i,0,n){
+        forn(j,0,m){
+            // printf("%lld ",  1 + max(rh[i][j],ch[i][j]) + max(rt[i][j], ct[i][j]))  ;
+            cout << 1 + max(rh[i][j],ch[i][j]) + max(rt[i][j], ct[i][j]) << sp ;
+        }
+        // printf("\n");
+        cout << el ;
+    }
+    return 0 ;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

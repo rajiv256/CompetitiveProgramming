@@ -46,8 +46,32 @@ typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> 
 typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
 
 int main(){
+    int n ; cin >> n ;
+    int a[n] ;
+    forn(i,0,n){
+        cin >> a[i] ;
 
-
+    }
+    VI v ;
+    int curr = a[0]  ; int cnt = 1 ;
+    for(int i = 1 ; i < n ; i++){
+        if (curr == a[i]){
+            cnt++ ;
+        }
+        else{
+            v.pb(cnt) ;
+            cnt = 1 ;
+            curr = a[i] ;
+        }
+    }
+    v.pb(cnt) ;
+    int ans = 0 ;
+    for(int i = 0 ; i < v.size()-1 ; i++){
+        ans = max(ans, 2*min(v[i], v[i+1])) ;
+    }
+    cout << ans << el ;
+    return 0 ;
+    
 
 }
 

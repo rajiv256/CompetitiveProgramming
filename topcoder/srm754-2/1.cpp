@@ -1,7 +1,3 @@
-/*
-	Resilience is the greatest of all virtues.
-	Code by rajiv
-*/
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -45,41 +41,20 @@ using namespace std ;
 typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> > VVI ; typedef vector<bool> VB ; typedef vector<string> VS ;
 typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
 
-int main(){
+class MissingDwarf {
+	public:
+	int getHeight(vector <int> otherHeights) {
+		int maxi = otherHeights[0] ; int sum = maxi ;
+		for(int i = 1 ; i < otherHeights.size() ; i++){
+			maxi = max(maxi, otherHeights[i]) ;
+			sum += otherHeights[i] ;
+		}
+		int lsum = sum ;
+		maxi++ ;
+		sum += maxi ;
+		sum = 7*ceil(sum/7.0) ;
+		return sum - lsum ;
+	}
+};
 
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//}
+// Powered by PopsEdit

@@ -124,7 +124,7 @@ void dfs2(int x , int pa){
     x = centroid(x,pa,size[x]/2) ;
     marked[x] = true ;
     //cout << x << sp << pa << el ;
-    par[x] = pa ;
+    par[x] = pa ;       
     for(auto it : adj[x]){
         if (!marked[it]){
             decompose(it,x) ;

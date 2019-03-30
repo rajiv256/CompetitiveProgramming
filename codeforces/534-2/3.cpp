@@ -42,93 +42,86 @@ using namespace std ;
 #define PII pair<int,int>
 
 int grid[4][4] ;
+vector<PII > hs, vs ;
 
-void clear_row(int idx ){
+void consolidate(){
+    vector<int> cols ;
+    vector<int> rows ;
     for(int i = 0 ; i < 4 ; i++){
-        grid[idx][i] = 0 ;
-    }
-}
-void  clear_col(int idx){
-    for(int i = 0 ; i < 4 ; i++){
-        grid[i][idx] = 0 ;
-    }
-}
-
-bool valid(int x, int y){
-    if (x < 0 || y < 0 || x >= 4 || y >= 4) return false ;
-    return true ;
-}
-pair<int,int> find(int tile){
-    for(int i = 0 ; i < 4 ; i++){
+        int cr = 0 ;
         for(int j = 0 ; j < 4 ; j++){
-            if (grid[i][j] == 0){
-                if (tile == 0){
-                    if (valid(i+1,j) && grid[i+1][j] == 0){
-                        return mp(i,j) ;
-                    }
-                }
-                if (tile == 1){
-                    if (valid(i, j+1) && grid[i][j+1] == 0){
-                        return mp(i,j) ;
-                    }
-                }
-            }
+            cr += grid[i][j] ;
         }
+        if (cr == 4) rows.pb(i) ;
     }
-    return mp(-1,-1) ;
-}
-void check_and_clear(){
-    vector<int> rs , cs ;
     for(int i = 0 ; i < 4 ; i++){
-        int nzr = 0 , nzs = 0  ;
+        int cc = 0 ;
         for(int j = 0 ; j < 4 ; j++){
-            nzr += (grid[i][j] != 0) ;
-            nzs += (grid[j][i] != 0) ;
+            cc += grid[j][i] ;
         }
-        if (nzr == 4){
-            rs.pb(i) ;
-        }
-        if (nzs == 4){
-            cs.pb(i) ;
+        if (cc == 4) cols.pb(i) ;
+    }
+
+    for(auto it : rows){
+        for (int j = 0 ; j < 4 ; j++){
+            grid[it][j] = 0 ;
         }
     }
-    for(auto it : rs){
-        clear_row(it) ;
-    }
-    for(auto it : cs){
-        clear_col(it) ;
+    for(auto it : cols){
+        for(int j = 0 ; j < 4 ; j++){
+            grid[j][it] = 0 ;
+        }
     }
 
 }
+void init(){
+    int x = 0 , y = 0 ;
+    hs.pb(mp(0,0)) ; hs.pb(mp(1,0)) ; hs.pb(mp(2, 0)) ; hs.pb(mp(3,0)) ;
+    x = 0 , y = 2;
+    vs.pb(mp(0,2)) ; vs.pb(mp(2,2)) ; vs.pb(mp(0,3)) ; vs.pb(mp(2,3)) ;
+}
+int find_row(){
+    for(int i = 0 ; i < 4 ; i++){
+        int r = hs[i].xx ; int c = hs[i].yy ;
+        if (grid[r][c] == 0) return i ;
+    }
+    return 0 ;
+}
+int find_col(){
+    for(int i = 0 ; i < 4 ; i++){
+        int r = vs[i].xx ; int c = vs[i].yy ;
+        if (grid[r][c] == 0) return i ;
+    }
+}
+void fill_h(int i){
+    int r = hs[i].xx ; int c = hs[i].yy ;
+    grid[r][c] = 1 ; grid[r][c+1] = 1 ;
+}
+void fill_v(int i){
+    int r = vs[i].xx ; int c = vs[i].yy ;
+    grid[r][c] = 1 ; grid[r+1][c] = 1 ;
+}
+
 
 int main(){
+    memset(grid, 0, sizeof grid) ;
+    init() ;
     string s ; cin >> s ;
-    vector<pair<int,int> > v ;
-    memset(grid, 0 , sizeof grid) ;
-    int r , c ;
     for(int i = 0 ; i < s.size() ; i++){
-        check_and_clear() ;
-        if (s[i] == '0'){
-            PII p = find(0) ;
-            r = p.xx ; c = p.yy ;
-            grid[r][c] = 1 ;
-            grid[r+1][c] = 1 ;
-            v.pb(mp(r+1,c+1)) ;
-            continue ;
-        }
+
         if (s[i] == '1'){
-            PII p = find(1) ;
-            r = p.xx ; c = p.yy ;
-            grid[r][c] = 1 ;
-            grid[r][c+1] = 1 ;
-            v.pb(mp(r+1,c+1)) ;
-            continue ; 
+            consolidate() ;
+            int x = find_row() ;
+            fill_h(x) ;
+            cout << hs[x].xx+1 << sp << hs[x].yy + 1 << el ;
+        }
+        else{
+            consolidate() ;
+            int x = find_col() ;
+            fill_v(x) ;
+            cout << vs[x].xx+1 << sp << vs[x].yy+1 << el ;
         }
 
-    }
-    for(auto it : v){
-
-        cout << it.xx << sp << it.yy << el ;
     }
     return 0 ;
 }

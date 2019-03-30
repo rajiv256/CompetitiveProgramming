@@ -19,6 +19,7 @@
  #include <cmath>
  #include <functional>
  #include <cmath>
+ #include <climits>
 
  using namespace std ;
 
@@ -45,21 +46,25 @@
 
  typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> > VVI ; typedef vector<bool> VB ; typedef vector<string> VS ;
  typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
+ const int N = 100050 ;
+ ll gcd(ll a , ll b){
+     if (a < b) return gcd(b, a) ;
+     if (b == 0) return a ;
+     return gcd(b, a%b) ;
+ }
+
+ int main(){
+     int n ; cin >> n ;
+     ll a[n] ;
+     for(int i = 0 ; i < n ; i++){
+         cin >> a[i] ;
+     }
+     sort(a, a+n) ;
+     ll g = a[0] ;
+     for(int i = 1 ; i < n ; i++){
+         g = gcd(g, a[i]) ;
+     }
+     cout << g << el ; 
 
 
-int main(){
-    VPII v1, v2 ;
-    int n ; cin >> n ; int a, b , x , y ;
-    FORN(i,0,n){
-        cin >> x >> y ;
-        v2.pb(mp(x,y)) ;
-    }
-    FORN(i,0,n){
-        cin >> a >> b ;
-        v1.pb(mp(a,b)) ;
-    }
-    sort(all(v1)) ;
-    sort(all(v2),greater<PII >()) ;
-    cout << v1[0].xx + v2[0].xx << sp << v1[0].yy + v2[0].yy << el ;
-    return 0 ;
-}
+ }

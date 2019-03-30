@@ -1,8 +1,3 @@
-/*
- 		Resilience is the greatest of all virtues.
- 		Code by rajiv
- */
-
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -34,31 +29,33 @@ using namespace std ;
 #define all(x) (x).begin(),(x).end()
 #define clr(x) memset((x),0,sizeof(x))
 #define uint unsigned int
-#define abs(x) ((x<=0)?(-x):(x))
 #define CASET  int t;cin>>t;while(t--)
-#define FORN(i,x,y) for(int i=x;i<y;i++)
-#define MAXN 100005
-#define INF 10000000010
-#define MOD 1000000007
+#define forn(i,x,y) for(int i=x;i<y;i++)
+#define maxn 100005
+#define inf 10000000010
+#define mod 1000000007
 #define last_set_bit(x) log2((x)&(-x))
 #define add(x,y) (x)=((x)+(y))%MOD
 #define PI 3.141592653589793
 
 typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> > VVI ; typedef vector<bool> VB ; typedef vector<string> VS ;
-typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ;
-typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
+typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
 
 
-int main(){
-    int y , b , r;
-    cin >> y >> b >> r ;
-    int x = r ;
-    if (b < x-1){
-        x = b+1 ;
-    }
-    if (y < x-2){
-        x = y+2 ;
-    }
-    cout << 3*x - 3 << el ;
-    return 0 ; 
-}
+class SeventhPowers {
+	public:
+	string reconstructA(int B) {
+		string s = "" ;
+		for(int i = 9 ; i >= 0 ; i--){
+			while (B >= pow(i,7) && B != 0){
+				s += (char)('0' + i) ;
+				B -= pow(i, 7) ;
+			}
+			if (B == 0) return s ;
+		}
+		return s ;
+
+	}
+};
+
+// Powered by PopsEdit

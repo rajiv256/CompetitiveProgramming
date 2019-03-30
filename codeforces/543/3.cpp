@@ -46,22 +46,67 @@
  typedef pair<int,int> PII ; typedef vector<int> VI ; typedef vector<vector<int> > VVI ; typedef vector<bool> VB ; typedef vector<string> VS ;
  typedef map<int,int> MII ; typedef map<int,VI > MIV ; typedef set<int> SI ; typedef set<PII > SPII ; typedef vector<PII > VPII ; typedef vector<VPII > VVPII ;
 
-
 int main(){
-    ll n ; cin >> n ;
-    ll fac[10*MAXN] ;
-    fac[0] = 1 ;  fac[1] = 1;
-    ll mod = 998244353 ;
-    for(int i = 2 ; i < 10*MAXN ; i++){
-        fac[i] = (fac[i-1]*i) % mod ;
+
+    int n , k ; cin >> n >> k ;
+    k = min(n,k) ;
+    int a[n] ;
+    int curr[k] ;
+    int kq[k] ;
+    memset(kq,0,sizeof kq) ;
+    memset(curr,0,sizeof curr) ;
+    for(int i = 0 ; i < n ; i++){
+        cin >> a[i] ;
     }
-    ll prod = n ;
-    ll ret = fac[n]  ;
-    for(int i = n-1 ; i >= 1 ; i--){
-        ret = (ret + (prod*(fac[i]-1) % mod)) % mod ;
-        prod = (prod*i)%mod ;
+    for(int i = 0 ; i < k ; i++){
+        curr[i] = i ;
+        kq[i]   = a[i] ;
     }
-    cout << ret << el ;
-    return 0 ; 
+    int next = k ;
+    int comp = 0 ;
+    int ans  = 0 ;
+    int ncomp = 0 ;
+    for(int t = 1 ; t <= 200*n ; t++){
+
+        for(int i = 0 ; i < k ; i++){
+            if (kq[i] == 0) continue ;
+            double testingnow = a[curr[i]] - kq[i] + 1 ;
+            double qq         = floor(100.0 * (double)comp/n + 0.5)  ;
+            if (testingnow == qq){
+                ans++ ;
+            }
+            kq[i]-- ;
+            if (kq[i] == 0){
+                if (next >= n) continue ;
+                ncomp++ ;
+                kq[i] = a[next] ;
+                curr[i] = next ;
+                next++ ;
+            }
+        }
+        comp += ncomp ;
+        ncomp = 0 ;
+    }
+    cout << ans << el ;
+    return 0 ;
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//}

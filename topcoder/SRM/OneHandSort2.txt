@@ -1,0 +1,92 @@
+PROBLEM STATEMENT
+Misof recently had an accident in which he managed to cut his left hand on some broken glass. He is now "all right" - meaning that he can only use his right hand for a while. Help him with some issues he has.
+Misof needs to sort the objects on his shelf. The shelf has N+1 slots, numbered 0 through N from the left to the right. Slot N is currently empty and it should be empty once the shelf is sorted. Slots 0 through N-1 contain objects: for each i, slot i currently contains an object that belongs into slot target[i].
+As Misof only has one working hand, he can only rearrange the shelf in one way: he can pick up any object and move it from its current slot into the one slot that is currently empty.
+Determine the smallest number of actions Misof needs to perform in order to sort the shelf.
+
+You are given the int N, the vector <int> targetPrefix, and ints a and b. Use the following pseudocode to generate the vector <int> target:
+
+
+L = length(targetPrefix)
+for i = 0 to L-1:
+    target[i] = targetPrefix[i]
+for i = L to N-1:
+    tmp = ( target[i-1] * a + b ) modulo N
+    x = the smallest number in the range [tmp,N-1] that does not appear in the set { target[0], ..., target[i-1] }
+    if such an x does not exist:    
+        x = the smallest number in the range [0,N-1] that does not appear in the set { target[0], ..., target[i-1] }
+    target[i] = x
+
+
+DEFINITION
+Class:OneHandSort2
+Method:minMoves
+Parameters:int, vector <int>, int, int
+Returns:int
+Method signature:int minMoves(int N, vector <int> targetPrefix, int a, int b)
+
+
+NOTES
+-You need to generate the array target efficiently. Otherwise, your solution may exceed the time limit.
+-Watch out for integer overflow when generating target.
+
+
+CONSTRAINTS
+-N will be between 1 and 500,000, inclusive.
+-targetPrefix will contain between 1 and min(N,200) elements, inclusive.
+-Each element of targetPrefix will be between 0 and N-1, inclusive.
+-All elements of targetPrefix will be distinct.
+-a and b will be between 0 and 2,000,000,000, inclusive.
+
+
+EXAMPLES
+
+0)
+4
+{1, 2, 3, 0}
+0
+0
+
+Returns: 5
+
+The shelf looks as follows:
+
+| 1 | 2 | 3 | 0 |   |
++---+---+---+---+---+
+
+The optimal way to sort this shelf is to do it in five moves. For example, we may move the object from slot 2 to slot 4, then from 1 to 2, then from 0 to 1, then from 3 to 0, and finally from slot 4 to slot 3.
+
+
+1)
+4
+{2, 3, 0, 1}
+0
+0
+
+Returns: 6
+
+This time we need six moves, this shelf cannot be sorted in five or fewer.
+
+
+2)
+10
+{3, 7}
+1664525
+1013904223
+
+Returns: 11
+
+
+The correct array you should generate in this test case: target = {3, 7, 8, 4, 5, 9, 0, 6, 1, 2}.
+
+
+
+3)
+10
+{5, 9, 8, 7, 6, 0, 3}
+0
+1
+
+Returns: 13
+
+target = {6, 9, 8, 7, 5, 0, 3, 1, 2, 4}

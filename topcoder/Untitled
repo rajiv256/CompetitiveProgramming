@@ -1,0 +1,33 @@
+<div class="container p-5">
+<form name="train_form" id="train_form" method="POST" action="/train_model/">
+<br>
+<div class="form-group">
+        <label for="train_model_name">Model Name:</label>
+        <input type="text" class="form-control" id="train_model_name" name="train_model_name">
+</div>
+<br>
+<div class="form-group">
+    <label for="category_type">Category Type:</label>
+    <input type="text" class="form-control" id="category_type" name="category_type">
+</div>
+<br>
+<div class="form-group">
+    <label for="category_type">Corpus:</label>
+    <select class="form-control" id="corpus" name="corpus">
+        {% for dict in host_index_dict_list %}
+        <option value="{{ dict.host }},{{ dict.index }}">Host : {{ dict.host }}, Index : {{ dict.index }}</option>
+        {% endfor %}
+    </select>
+</div>
+<br>
+<div class="form-group">
+    <label for="training_seeds">Training Seeds:</label>
+    <textarea class="form-control" rows="7" id="training_seeds" name="training_seeds"></textarea>
+</div>
+<br>
+<center>
+    <button type="button" id="train_model" class="btn btn-lg btn-success">Train Model</button>
+</center>
+
+</form>
+</div>
